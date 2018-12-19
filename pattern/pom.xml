@@ -27,6 +27,7 @@
         <module>pattern-bridge</module>
         <module>pattern-composite</module>
         <module>pattern-flyweight</module>
+        <module>pattern-strategy</module>
     </modules>
 
     <properties>
