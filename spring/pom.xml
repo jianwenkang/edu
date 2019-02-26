@@ -9,27 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>pattern</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>spring</artifactId>
 
-    <name>pattern</name>
+    <name>spring</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
-    <modules>
-        <module>pattern-factory</module>
-        <module>pattern-singleton</module>
-        <module>pattern-proxy</module>
-        <module>pattern-prototype</module>
-        <module>pattern-builder</module>
-        <module>pattern-adapter</module>
-        <module>pattern-decorator</module>
-        <module>pattern-facade</module>
-        <module>pattern-bridge</module>
-        <module>pattern-composite</module>
-        <module>pattern-flyweight</module>
-        <module>pattern-strategy</module>
-        <module>pattern-observer</module>
-    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -49,6 +33,12 @@
     <build>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-archetype-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+
                 <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
