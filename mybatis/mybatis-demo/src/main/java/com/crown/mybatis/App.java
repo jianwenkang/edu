@@ -1,4 +1,4 @@
-package com.crown;
+package com.crown.mybatis;
 
 /**
  * Hello world!

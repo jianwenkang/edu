@@ -29,6 +29,7 @@
         <module>pattern-flyweight</module>
         <module>pattern-strategy</module>
         <module>pattern-observer</module>
+        <module>pattern-chain</module>
     </modules>
 
     <properties>
@@ -41,7 +42,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

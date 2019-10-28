@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crown.mybatis.demo2.mapper.UserMapper">
+    <insert id="insertOne" parameterType="User" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO user ( USER_NAME, USER_SEX )
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <choose>
+                <when test="userName != null and userName != ''">
+                    #{userName},
+                </when>
+                <otherwise>
+                    null,
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="userSex != null and userName != ''">
+                    #{userSex},
+                </when>
+                <otherwise>
+                    null,
+                </otherwise>
+            </choose>
+        </trim>
+    </insert>
+
+    <insert id="insertMore" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO user ( USER_NAME, USER_SEX )
+        VALUES
+        <foreach collection="list" item="user" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <choose>
+                    <when test="user.userName != null and user.userName != ''">
+                        #{user.userName},
+                    </when>
+                    <otherwise>
+                        null,
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="user.userSex != null and user.userName != ''">
+                        #{user.userSex},
+                    </when>
+                    <otherwise>
+                        null,
+                    </otherwise>
+                </choose>
+            </trim>
+        </foreach>
+    </insert>
+
+    <delete id="deleteOne" parameterType="User">
+        DELETE
+        FROM
+          user
+        WHERE
+          AND
+          USER_ID = #{userId}
+    </delete>
+
+    <delete id="deleteMore" parameterType="java.util.List">
+        DELETE
+        FROM
+          user
+        <where>
+            <foreach collection="list" item="user" open=" OR (" separator=")OR(" close=")">
+              <trim prefixOverrides="AND">
+                <if test="user.userId != null and user.userId != ''">
+                    AND USER_ID = #{user.userId}
+                </if>
+                <if test="user.userName != null and user.userName != ''">
+                    AND USER_NAME = #{user.userName}
+                </if>
+                <if test="user.userSex != null and user.userName != ''">
+                    AND USER_SEX = #{user.userSex}
+                </if>
+              </trim>
+            </foreach>
+        </where>
+    </delete>
+
+    <update id="updateOne" parameterType="User">
+        UPDATE user
+        <set>
+            <if test="userName != null and userName != ''">
+                USER_NAME = #{userName},
+            </if>
+            <if test="userSex != null and userName != ''">
+                USER_SEX = #{userSex},
+            </if>
+        </set>
+        WHERE USER_ID = #{userId}
+    </update>
+
+    <update id="updateMore">
+
+        <foreach collection="list" item="user" separator=";">
+            UPDATE user
+            <set>
+                <if test="user.userName != null and user.userName != ''">
+                    USER_NAME = #{user.userName},
+                </if>
+                <if test="user.userSex != null and user.userName != ''">
+                    USER_SEX = #{user.userSex},
+                </if>
+            </set>
+            WHERE USER_ID = #{user.userId}
+        </foreach>
+
+    </update>
+
+    <select id="selectOne" resultType="User">
+        SELECT
+          USER_ID AS userId,
+          USER_NAME AS userName,
+          USER_SEX AS userSex
+        FROM
+            user
+        WHERE
+            USER_ID = #{userId}
+    </select>
+
+    <select id="selectMore" resultType="User">
+        SELECT
+          USER_ID AS userId,
+          USER_NAME AS userName,
+          USER_SEX AS userSex
+        FROM
+            user
+        <where>
+            <foreach collection="list" item="user" open=" OR (" separator=")OR(" close=")">
+                <trim prefixOverrides="AND">
+                    <if test="user.userId != null and user.userId != ''">
+                        AND USER_ID = #{user.userId}
+                    </if>
+                    <if test="user.userName != null and user.userName != ''">
+                        AND USER_NAME = #{user.userName}
+                    </if>
+                    <if test="user.userSex != null and user.userName != ''">
+                        AND USER_SEX = #{user.userSex}
+                    </if>
+                </trim>
+            </foreach>
+        </where>
+    </select>
+
+    <select id="selectFather" resultMap="father">
+        SELECT
+            father.id fid,
+            father.`name` fname,
+            son.id sid,
+            son.`name` sname,
+            son.f_id,
+            son.`group`
+        FROM
+            father
+        INNER JOIN son ON son.f_id = father.id
+        ORDER BY son.`group`
+    </select>
+
+    <resultMap id="father" type="com.crown.mybatis.entity.Father">
+        <!--<id column="fid" property="id"/>-->
+        <result column="fname" property="name"></result>
+        <collection property="sonList" ofType="com.crown.mybatis.entity.Son">
+            <result column="sname" property="name"></result>
+        </collection>
+    </resultMap>
+</mapper>
