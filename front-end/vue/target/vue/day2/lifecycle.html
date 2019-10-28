@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <script src="../js/vue.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+    <div id="app">
+        <h1>{{ msg }}</h1>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'nihao',
+            },
+            methods:{
+                show(){
+                    console.log("show method")
+                }
+            },
+            filters:{
+
+            },
+            directives:{
+
+            },
+            //生命周期函数   表示实例被创建完成之前 执行
+            beforeCreate(){
+
+            },
+            //2 创建完成
+            created(){
+
+            },
+            //3 编译完成  但尚未渲染页面
+            beforeMount(){
+
+            },
+            //4.渲染完成   实例创建完成的最后一个函数
+            mounted(){
+
+            },
+            //运行期间函数
+            //1.数据更新完毕但没有渲染到页面
+            beforeUpdate(){
+                console.log('beforeUpdate')
+            },
+            //2.渲染完成
+            updated(){
+
+            },
+            //销毁阶段
+            //
+            beforeDestroy(){
+
+            },
+            //组件完全被销毁
+            destroyed(){
+
+            }
+        })
+    </script>
+</body>
+</html>

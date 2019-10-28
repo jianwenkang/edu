@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <script src="../js/vue.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+    <div id="app">
+        搜索:<input type="text" class="form-control" v-model="keywords" v-focus><!--v-focus 自定义指令-->
+    </div>
+
+    <script>
+        // 自定义全局指令
+        // 参数1  指令名称
+        // 参数2  对象  这个对象为一些指令相关的钩子函数
+        Vue.directive('focus',{
+            bind:function (el) {   //元素指令绑定到元素上时执行这个函数   只执行一次
+                //el.focus();
+            },
+            inserted:function (el) {  //   表示元素插入到DOM时执行  触发一次
+                //el.focus()
+            },
+            updated:function () {   //更新时执行  触发多次
+
+            }
+        })
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                keywords:''
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

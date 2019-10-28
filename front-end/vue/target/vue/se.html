@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <link rel="shortcut icon" href="#" />
+</head>
+<body>
+<div class="content">
+    <ul id="pCon">
+        <li id="a" onclick="fun('a')">AAAAAAAAAAAA</li>
+        <li id="b" onclick="fun('b')">BBBBBBBBBBBBB</li>
+        <li id="c" onclick="fun('c')">CCCCCCCCCCC</li></ul>
+    <hr/>
+</div>
+<script>
+   function fun(arg) {
+        var elementById = document.getElementById(arg);
+        var previousElementSibling = elementById.previousElementSibling;
+        if (previousElementSibling == null){
+
+        } else {
+            var parentNode = elementById.parentNode;
+            parentNode.insertBefore(elementById,previousElementSibling);
+        }
+   }
+</script>
+</body>
+</html>
+
+<br><br><hr>

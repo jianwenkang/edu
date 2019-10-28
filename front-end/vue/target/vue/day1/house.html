@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+
+</head>
+<body>
+    <div id="app">
+        <input type="button" :value="msg1" @click="start">
+        <input type="button" :value="msg2" @click="stop">
+        <h4>{{ msg }}</h4>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        //在vm实例中，如果想要获取data上的数据，或者想要调用method中的方法，必须通过this.数据属性名  或   this.方法名  来进行访问
+        //这里的this表示vm实例
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:"gcca123456",
+                msg1:"动",
+                msg2:"停",
+                intervalId:null,//在data上定义  定时器ID
+            },
+            methods:{
+                start(){
+                    /*var _this = this;
+                    setInterval(function () {
+                        console.log(_this.msg);
+                        var start = _this.msg.substring(0,1);
+                        var end =  _this.msg.substring(1);
+                        _this.msg = end + start;
+                    },400)*/
+                    if(this.intervalId == null){
+                        this.intervalId = setInterval( () => {  //es6箭头函数
+                            console.log(this.msg);
+                        var start = this.msg.substring(0,1);
+                        var end =  this.msg.substring(1);
+                        this.msg = end + start;
+                    },400)
+                    }
+                    //vue实例，会自动监听自己身上data中所有数据的改变，只要数据一发生变化，就会自动把最新的数据同步到页面中（好处：程序员只需要关心数据，不要考虑如何重新渲染dom页面）
+                },
+                stop(){ //es6语法
+                    clearInterval(this.intervalId)
+                    this.intervalId = null;
+                },
+
+            }
+
+        })
+
+    </script>
+</body>
+</html>

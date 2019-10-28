@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+
+</head>
+<body>
+    <div id="app">
+        <div>
+            <label>id:
+                <input type="text" v-model="id">
+            </label>
+            <label>Name:
+                <input type="text" v-model="name">
+            </label>
+            <input type="button" value="add" @click="add">
+        </div>
+        <p v-for="item in list" :key="item.id">
+            <input type="checkbox">{{item.id}} --- {{item.name}}
+        </p>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                id:'',
+                name:'',
+                list:[
+                    { id: 1, name: 'ls'},
+                    { id: 2, name: 'yz'},
+                    { id: 3, name: 'zg'}
+                ]
+            },
+            methods:{
+                add(){
+                    //this.list.push({id: this.id,name: this.name})
+                    this.list.unshift({id: this.id,name: this.name})
+                }
+            }
+        })
+    </script>
+</body>
+</html>

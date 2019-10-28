@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <script src="../js/vue.js"></script>
+    <!-- vue-resource 依赖于vue-->
+    <script src="../js/resource.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+<div id="app">
+    <h1>{{ msg }}</h1>
+    <input type="button" :value="get" @click="getInfo">
+    <input type="button" :value="post" @click="postInfo">
+    <input type="button" :value="json" @click="jsonInfo">
+</div>
+
+<script>
+
+    //vue   发送请求
+
+    //vue-resource
+    Vue.http.options.root = 'http://localhost:8080/';
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            msg:'nihao',
+            get:'get',
+            post:'post',
+            json:'json'
+        },
+        methods:{
+            show:function() {
+
+            },
+            getInfo:function() {
+                this.$http.get('vue',{params: {name:"get",url:"www.get"}})
+                .then(
+                    function (result) {
+                        console.log(result.body)
+                    },
+                    function (error) {
+                        console.log(error)
+                    }
+                )
+            },
+            postInfo:function () {
+                this.$http.post('vue', {name:"post",url:"www.post"}, {emulateJSON: true})
+                    .then(
+                        function (success) {
+                            console.log(success.body)
+                        },
+                        function (error) {
+                            console.log(error)
+                        }
+                    )
+            },
+            jsonInfo:function () {
+                this.$http.jsonp('jsonp',{params: {name:"json",url:"www.json"},jsonp:"ck"})
+                    .then(
+                        function (success) {
+                            console.log(success.body)
+                        },
+                        function (error) {
+                            console.log(error.body)
+                        }
+                    )
+            }
+        },
+        filters:{
+
+        },
+        directives:{
+
+        },
+        //生命周期函数   表示实例被创建完成之前 执行
+        beforeCreate(){
+
+        },
+        //2 创建完成
+        created(){
+
+        },
+        //3 编译完成  但尚未渲染页面
+        beforeMount(){
+
+        },
+        //4.渲染完成   实例创建完成的最后一个函数
+        mounted(){
+
+        },
+        //运行期间函数
+        //1.数据更新完毕但没有渲染到页面
+        beforeUpdate(){
+
+        },
+        //2.渲染完成
+        updated(){
+
+        },
+        //销毁阶段
+        //
+        beforeDestroy(){
+
+        },
+        //组件完全被销毁
+        destroyed(){
+
+        }
+    })
+</script>
+</body>
+</html>

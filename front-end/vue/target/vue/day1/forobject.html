@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+
+</head>
+<body>
+    <div id="app">
+
+        <p v-for="user in list">{{user.id}} -- {{user.name}}</p>
+        <p v-for="(user,index) in list">{{user.id}} -- {{user.name}} -- {{index}}</p>
+        <br>
+        <p v-for="(val, key, i) in user">{{val}} -- {{key}} -- {{i}}</p>
+        <br>
+
+        <p v-for="count in 10">{{count}}</p>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                list:[
+                    { id:1, name:'zs'},
+                    { id:2, name:'ls'},
+                    { id:3, name:'ww'},
+                    { id:4, name:'zl'}
+                ],
+                user:{
+                    id:1,
+                    name:"托尼",
+                    sex:"男"
+                }
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

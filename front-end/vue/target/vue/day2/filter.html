@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <script src="../js/vue.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+    <div id="app">
+        <p>{{ msg | msgFormat('5','6')}}</p>
+        <p>{{ msg | msgFormat('5','6') | test}}</p>
+    </div>
+
+    <script>
+        //全局过滤器
+        Vue.filter('msgFormat', function(msg,arg1,arg2) {
+            //return msg.replace('1','4')
+            return msg.replace(/1/g,arg1 + arg2)
+        })
+        Vue.filter('test',function (msg) {
+            return msg + '========';
+        })
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'1222223313331'
+            },
+            methods:{
+
+            }
+        });
+        //Vue过滤器
+        //语法  Vue.filter('filterName',function(data,?,?){})//第一个参数为参数
+        /*Vue.filter('myFriter'function(data) {
+
+        })*/
+    </script>
+</body>
+</html>

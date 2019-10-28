@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/resource.js"></script><!--//vue-resource-1.3.4.js-->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+<div id="app">
+    <com1 :parentmsg="pmsg"></com1>
+</div>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            pmsg:'123'
+        },
+        methods: {},
+        filters: {},
+        directives: {},
+        components: {
+            com1:{
+                data:function () {
+                    return {
+                        smsg:'这是组件中的数据'
+                    }
+                },
+                template:'<h1>子组件：{{ smsg }} --- 父组件：{{ parentmsg }}</h1>',
+                props:['parentmsg']
+            }
+        },
+
+        beforeCreate() { },
+        created() { },
+        beforeMount() { },
+        mounted() { },
+        beforeUpdate() { },
+        updated() { },
+        beforeDestroy() { },
+        destroyed() { }
+    })
+
+</script>
+</body>
+</html>

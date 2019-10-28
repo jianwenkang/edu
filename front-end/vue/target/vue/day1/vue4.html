@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+
+</head>
+<body>
+    <div id="app">
+        <h4>{{msg}}</h4><!--插值表达式-->
+        <input type="text" style="width: 100%" :value="msg">  <!-- v-bind 只能实现 从 M ==> V  的单向数据绑定-->
+        <input type="text" style="width: 100%" v-model="msg"> <!-- v-model 可以实现 从 M <==> V  的双向数据绑定   v-model 只能运用在表单元素中-->
+    </div>
+
+    <div id="app1">
+        <h4>{{msg}}</h4><!--插值表达式-->
+
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                msg:"xxxxxx",
+                msg1:"xxxxxx",
+            },
+            methods:{
+
+            }
+        })
+        var vm1 = new Vue({
+            el:"#app1",
+            data:{
+                msg:"wwww",
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <style>
+        .red{
+            color:red;
+        }
+        .this{
+            font-style: 200;
+        }
+        .italic{
+            font-style: italic;
+        }
+
+        .active{
+            letter-spacing: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1 class="red thin">hhhhhhhh</h1>
+
+        <h1 :class="['red' , 'italic']">hhhhhhhh</h1><!--    数组形式添加样式  需要使用v-bind 进行数据绑定  -->
+
+        <h1 :class="['red' , 'italic' , falg?'active':'']">hhhhhhhh</h1><!-- 使用三元表达式 -->
+
+        <h1 :class="['red' , 'italic' , {'active':falg}]">hhhhhhhh</h1><!--  使用对象代替三元表达式  -->
+
+        <h1 :class="{ red: true, thin: true, italic: false, active: true}">hhhhhhhh</h1><!-- 在位class 使用v-bind 绑定对象的时候，对象的属性是类名，由于对象的属性可带引号可不带引号-->
+
+        <h1 :class="classObj">hhhhhhhh</h1>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                falg : true,
+                classObj:{ red: true, thin: true, italic: false, active: true},
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

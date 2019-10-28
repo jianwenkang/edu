@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app">
+        <!-- v-cloak解决 插值表达式闪烁的问题-->
+        <p v-cloak>{{msg}}</p>
+        <!-- v-text -->
+        <h4 v-text="msg"></h4>
+        <div>{{msg2}}</div>
+        <div v-html="msg2"></div>
+
+        <input type="button" value="按钮" v-bind:title="mytitle + '123'">
+        <input type="button" value="按钮" :title="mytitle + '123'"><!--简写-->
+        <!-- v-bind绑定数据
+             v-on绑定事件
+        -->
+        <!--<input type="button" value="按钮" :title="mytitle + '123'" v-on:click="alert('hello1')" id="btn">-->
+        <input type="button" value="按钮" :title="mytitle + '123'" v-on:click="show">
+        <input type="button" value="按钮" :title="mytitle + '123'" v-on:mouseover="show1">
+        <input type="button" value="按钮" :title="mytitle + '123'" @mouseover="show1"><!--缩写-->
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#app',        //表示当前我们new的vue控制那个区域
+            data:{            //控制区域内需要的数据
+                msg:123,
+                msg2:'<h1>我大我骄傲</h1>',
+                mytitle:'Mytitle'
+            },
+            methods:{         //定义当前控制区域可用的方法
+                show:function () {
+                    alert("show");
+                },
+                show1:function () {
+                    alert("show1")
+                }
+            }
+        })
+        /*document.getElementById("btn").onclick = function () {
+            alert("hello")
+        }*/
+    </script>
+</body>
+</html>
+
+/**
+
+*/

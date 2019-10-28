@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div id="app" style="min-height: calc(100vh - 0px);margin-top: 100px;">
+			<div class="ty-transfer mt20 ml20">
+				<!--源数据-->
+				<div class="fl ty-transfer-list transfer-list-left">
+					<div class="ty-transfer-list-head">
+						<div class="tyc-check-blue dib ml10">
+							<input type="checkbox" onclick="toggleAll(0)" class="transfer-all-check">
+							<span>全选</span>
+						</div>
+						<div class="dib fs14 fw ml5">1 2/3</div>
+					</div>
+					<div class="ty-transfer-list-body">
+						<ul id="sourcedata" class="ty-tree-select">
+							<li>
+								<div class="ty-tree-div">
+								<label class="tyue-checkbox-wrapper">
+		                            <span class="tyue-checkbox">
+		                                <input type="checkbox" class="tyue-checkbox-input">
+		                                <span class="tyue-checkbox-circle"></span>
+		                            </span>
+									<span class="tyue-checkbox-txt">HTML5</span>
+								</label>
+							</div>
+							</li>
+							<li>
+								<div class="ty-tree-div">
+									<label class="tyue-checkbox-wrapper">
+		                            <span class="tyue-checkbox">
+		                                <input type="checkbox" class="tyue-checkbox-input">
+		                                <span class="tyue-checkbox-circle"></span>
+		                            </span>
+										<span class="tyue-checkbox-txt">CSS3</span>
+									</label>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- 左右切换-->
+				<div class="fl ty-transfer-operation">
+                <span onclick="toTarget" class="disabled ty-transfer-btn-toright to-switch" ></span>
+				<span onclick="toSource" class="active ty-transfer-btn-toleft  to-switch" ></span>
+				</div>
+				<!-- 目标 -->
+				<div class="fl ty-transfer-list transfer-list-right">
+					<div class="ty-transfer-list-head">
+						<div class="tyc-check-blue dib ml10">
+							<input type="checkbox" onclick="toggleAll(1)" class="transfer-all-check">
+							<span>全选</span>
+						</div>
+						<div class="dib fs14 fw ml5">4 5/6</div>
+					</div>
+					<div class="ty-transfer-list-body">
+						<ul class="ty-tree-select">
+							<li>
+								<div class="ty-tree-div">
+									<label class="tyue-checkbox-wrapper">
+		                            <span class="tyue-checkbox">
+		                                <input type="checkbox" class="tyue-checkbox-input">
+		                                <span class="tyue-checkbox-circle"></span>
+		                            </span>
+										<span class="tyue-checkbox-txt">redis</span>
+									</label>
+								</div>
+							</li>
+							<li>
+								<div class="ty-tree-div">
+									<label class="tyue-checkbox-wrapper">
+		                            <span class="tyue-checkbox">
+		                                <input type="checkbox" class="tyue-checkbox-input">
+		                                <span class="tyue-checkbox-circle"></span>
+		                            </span>
+										<span class="tyue-checkbox-txt">Vue</span>
+									</label>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- 顺序 -->
+				<div class="fl ty-transfer-operation four-icon">
+                <span onclick="moveItems(4)" class="disabled ty-transfer-btn-zhiding to-switch normal" ></span>
+				<span onclick="moveItems(0)" class="active ty-transfer-btn-totop to-switch"></span>
+				<span onclick="moveItems(1)" class="disabled ty-transfer-btn-tobottom to-switch"></span>
+				<span onclick="moveItems(3)" class="active ty-transfer-btn-zhidi to-switch normal"></span>
+				</div>
+				<div class="clearboth"></div>
+
+			</div>
+		</div>
+
+        <script  type="text/javascript">
+			window.onload=function(){
+				var ul = document.getElementById("sourcedata")
+				for (var i=0;i<5;i++) {
+					var oLi = document.createElement("li");
+					oLi.innerHTML = "";
+				}
+			}
+			function toggleAll(flag) {
+
+			}
+			function moveItems(flag) {
+
+			}
+    	</script>
+	</body>
+</html>

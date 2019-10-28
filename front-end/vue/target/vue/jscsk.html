@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="icon" >
+		<link rel="stylesheet" href="style.css" />
+		<link rel="shortcut icon" href="#" />
+	</head>
+	<body>
+		<div id="app" style="min-height: calc(100vh - 0px);margin-top: 100px;">
+			<div class="ty-transfer mt20 ml20">
+				<!--源数据-->
+				<div class="fl ty-transfer-list transfer-list-left">
+					<div class="ty-transfer-list-head">
+						<div class="tyc-check-blue dib ml10">
+							<input id="sack" type="checkbox" onclick="toggleAll(this,0)" class="transfer-all-check">
+							<span>全选</span>
+						</div>
+						<div class="dib fs14 fw ml5">源列表 <span id="sckl" class="fs14"></span>/<span id="sl" class="fs14"></span></div>
+					</div>
+					<div class="ty-transfer-list-body">
+						<ul id="sourcedata" class="ty-tree-select">
+
+						</ul>
+					</div>
+				</div>
+				<!-- 左右切换-->
+				<div class="fl ty-transfer-operation">
+                <span id="toTarget" onclick="toTarget()" class="disabled ty-transfer-btn-toright to-switch" ></span>
+				<span id="toSource" onclick="toSource()" class="disabled ty-transfer-btn-toleft  to-switch" ></span>
+				</div>
+				<!-- 目标 -->
+				<div class="fl ty-transfer-list transfer-list-right">
+					<div class="ty-transfer-list-head">
+						<div class="tyc-check-blue dib ml10">
+							<input id="tack" type="checkbox" onclick="toggleAll(this,1)" class="transfer-all-check">
+							<span>全选</span>
+						</div>
+						<div class="dib fs14 fw ml5">目标列表 <span id="tckl" class="fs14"></span>/<span id="tl" class="fs14"></span></div>
+					</div>
+					<div class="ty-transfer-list-body">
+						<ul id="targetdata" class="ty-tree-select">
+
+						</ul>
+					</div>
+				</div>
+				<!-- 顺序 -->
+				<div class="fl ty-transfer-operation four-icon">
+                <span id="moveTop" onclick="moveItems(0)" class="disabled ty-transfer-btn-zhiding to-switch normal" ></span>
+				<span id="moveUp" onclick="moveItems(1)" class="disabled ty-transfer-btn-totop to-switch"></span>
+				<span id="moveDown" onclick="moveItems(2)" class="disabled ty-transfer-btn-tobottom to-switch"></span>
+				<span id="moveEnd" onclick="moveItems(3)" class="disabled ty-transfer-btn-zhidi to-switch normal"></span>
+				</div>
+				<div class="clearboth">
+
+				</div>
+				<input type="button" value="提交" onclick="submit()" />
+			</div>
+		</div>
+
+        <script  type="text/javascript">
+
+			// 整体需要的数据
+			/*
+				源数据
+				选中源数据
+				目标数据
+				选中目标数据
+			 */
+			var sourcedataList = ['1-1','1-2','1-3','1-4','1-5','1-6'];
+			var sourceckdataList = [];
+			var targetList = ['2-1','2-2','2-3','2-4','2-5','2-6'];
+			var targetckList = [];
+			var xhr = new XMLHttpRequest();
+			xhr.open('post','data',true);
+
+			xhr.send();
+			xhr.onreadystatechange = function () {
+				if(xhr.readyState == 4 && xhr.status == 200){
+					var data = xhr.responseText;
+					sourcedataList = JSON.parse(data).a;
+					targetList = JSON.parse(data).b;
+				}
+			}
+			window.onload=function(){
+				var ul = document.getElementById("sourcedata");
+
+				var sourceLi = "";
+				for (var i = 0; i < sourcedataList.length; i++) {
+					sourceLi+="<li>\n" +
+							"<div class=\"ty-tree-div\">\n" +
+							"<label class=\"tyue-checkbox-wrapper\">\n" +
+							"<span class=\"tyue-checkbox\">\n" +
+							"<input name='sck' type=\"checkbox\" value=\""+ sourcedataList[i] +"\" class=\"tyue-checkbox-input\">\n" +
+							"<span class=\"tyue-checkbox-circle\"></span>\n" +
+							"</span>\n" +
+							"<span class=\"tyue-checkbox-txt\">"+ sourcedataList[i] +"</span>\n" +
+							"</label>\n" +
+							"</div>\n" +
+							"</li>"
+				}
+				ul.innerHTML = sourceLi;
+				var sck = document.getElementsByName("sck")
+				var sack = document.getElementById ("sack");
+				for ( var i = 0; i < sck.length; i++){
+					sck[i].onclick = function (){
+						sourceckdataList = [];
+						var falg = true;
+						for ( var i = 0; i < sck.length; i++){
+							if(sck[i].checked){
+								sourceckdataList.push(sck[i].value)
+							}else {
+								falg = false;
+							}
+						}
+						//获得已选中和未选中的数据
+						sack.checked = falg;
+						document.getElementById("sckl").innerText = sourceckdataList.length;
+						document.getElementById("sl").innerText = sourcedataList.length;
+						if(0 < sourceckdataList.length){
+							document.getElementById("toTarget").className = "active ty-transfer-btn-toright to-switch";
+						}else {
+							document.getElementById("toTarget").className = "disabled ty-transfer-btn-toright to-switch";
+						}
+					};
+				}
+				var ul = document.getElementById("targetdata");
+
+				var targetLi = "";
+				for (var i = 0; i < targetList.length; i++) {
+					targetLi+="<li>\n" +
+							"<div class=\"ty-tree-div\">\n" +
+							"<label class=\"tyue-checkbox-wrapper\">\n" +
+							"<span class=\"tyue-checkbox\">\n" +
+							"<input name='tck' type=\"checkbox\" value=\""+ targetList[i] +"\" class=\"tyue-checkbox-input\">\n" +
+							"<span class=\"tyue-checkbox-circle\"></span>\n" +
+							"</span>\n" +
+							"<span class=\"tyue-checkbox-txt\">"+ targetList[i] +"</span>\n" +
+							"</label>\n" +
+							"</div>\n" +
+							"</li>";
+				}
+				ul.innerHTML = targetLi;
+				var tck = document.getElementsByName("tck")
+				var tack = document.getElementById ("tack");
+				for ( var i = 0; i < tck.length; i++){
+					tck[i].onclick = function (){
+						targetckList = [];
+						var falg = true;
+						for ( var i = 0; i < tck.length; i++){
+							if(tck[i].checked){
+								targetckList.push(tck[i].value)
+							}else {
+								falg = false;
+							}
+						}
+						//获得已选中和未选中的数据
+						tack.checked = falg;
+						document.getElementById("tckl").innerText = targetckList.length;
+						document.getElementById("tl").innerText = targetList.length;
+						if(0 < targetckList.length){
+							document.getElementById("toSource").className = "active ty-transfer-btn-toleft to-switch";
+							document.getElementById("moveTop").className = "active ty-transfer-btn-zhiding to-switch normal";
+							document.getElementById("moveUp").className = "active ty-transfer-btn-totop to-switch";
+							document.getElementById("moveDown").className = "active ty-transfer-btn-tobottom to-switch";
+							document.getElementById("moveEnd").className = "active ty-transfer-btn-zhidi to-switch normal";
+
+						}else {
+							document.getElementById("toSource").className = "disabled ty-transfer-btn-toleft to-switch";
+							document.getElementById("moveTop").className = "disabled ty-transfer-btn-zhiding to-switch normal";
+							document.getElementById("moveUp").className = "disabled ty-transfer-btn-totop to-switch";
+							document.getElementById("moveDown").className = "disabled ty-transfer-btn-tobottom to-switch";
+							document.getElementById("moveEnd").className = "disabled ty-transfer-btn-zhidi to-switch normal";
+						}
+					};
+				}
+				document.getElementById("sckl").innerText = sourceckdataList.length;
+				document.getElementById("sl").innerText = sourcedataList.length;
+				document.getElementById("tckl").innerText = targetckList.length;
+				document.getElementById("tl").innerText = targetList.length;
+			}
+
+			function toggleAll(event,flag) {
+				var sts = event.checked;
+				var iss;
+				if(flag == 0){
+					iss = document.getElementsByName('sck');
+				}else if(flag == 1){
+					iss = document.getElementsByName('tck');
+				}
+				if(sts){
+					for(var i = 0; i < iss.length; i++){ //循环下面所有复选框,将所有复选框都选中
+						iss[i].checked=true;
+					}
+				}else {
+					for(var i = 0; i < iss.length; i++){
+						iss[i].checked = false;
+					}
+				}
+				if(flag == 0){
+					sourceckdataList = [];
+					for ( var i = 0; i < iss.length; i++){
+						if(iss[i].checked){
+							sourceckdataList.push(iss[i].value)
+						}
+					}
+					document.getElementById("sckl").innerText = sourceckdataList.length;
+					document.getElementById("sl").innerText = sourcedataList.length;
+					if(0 < sourceckdataList.length){
+						document.getElementById("toTarget").className = "active ty-transfer-btn-toright to-switch";
+					}else {
+						document.getElementById("toTarget").className = "disabled ty-transfer-btn-toright to-switch";
+					}
+				}else if(flag == 1){
+					targetckList = [];
+					for ( var i = 0; i < iss.length; i++){
+						if(iss[i].checked){
+							targetckList.push(iss[i].value)
+						}
+					}
+					document.getElementById("tckl").innerText = targetckList.length;
+					document.getElementById("tl").innerText = targetList.length;
+					if(0 < targetckList.length){
+						document.getElementById("toSource").className = "active ty-transfer-btn-toleft to-switch";
+						document.getElementById("moveTop").className = "active ty-transfer-btn-zhiding to-switch normal";
+						document.getElementById("moveUp").className = "active ty-transfer-btn-totop to-switch";
+						document.getElementById("moveDown").className = "active ty-transfer-btn-tobottom to-switch";
+						document.getElementById("moveEnd").className = "active ty-transfer-btn-zhidi to-switch normal";
+					}else {
+						document.getElementById("toSource").className = "disabled ty-transfer-btn-toleft to-switch";
+						document.getElementById("moveTop").className = "disabled ty-transfer-btn-zhiding to-switch normal";
+						document.getElementById("moveUp").className = "disabled ty-transfer-btn-totop to-switch";
+						document.getElementById("moveDown").className = "disabled ty-transfer-btn-tobottom to-switch";
+						document.getElementById("moveEnd").className = "disabled ty-transfer-btn-zhidi to-switch normal";
+					}
+				}
+			}
+
+			function toTarget() {
+				//向目标框添加数据
+				var ul = document.getElementById("targetdata");
+				for ( var i = 0; i < sourceckdataList.length; i++){
+					var li = document.createElement("li");
+					ul.appendChild(li);
+					li.innerHTML = "<div class=\"ty-tree-div\">\n" +
+							"<label class=\"tyue-checkbox-wrapper\">\n" +
+							"<span class=\"tyue-checkbox\">\n" +
+							"<input name='tck' type=\"checkbox\" value=\""+ sourceckdataList[i] +"\" class=\"tyue-checkbox-input\">\n" +
+							"<span class=\"tyue-checkbox-circle\"></span>\n" +
+							"</span>\n" +
+							"<span class=\"tyue-checkbox-txt\">"+ sourceckdataList[i] +"</span>\n" +
+							"</label>\n" +
+							"</div>\n";
+				}
+				//重新设置四个值
+				//目标
+				var tck = document.getElementsByName("tck");
+				var tack = document.getElementById ("tack");
+				targetList = [];
+				targetckList = [];
+				for ( var i = 0; i < tck.length; i++){
+					tck[i].onclick = function (){
+						targetckList = [];
+						var falg = true;
+						for ( var j = 0; j < tck.length; j++){
+							if(tck[j].checked){
+								targetckList.push(tck[j].value)
+							}else {
+								falg = false;
+							}
+						}
+						//获得已选中和未选中的数据
+						tack.checked = falg;
+						document.getElementById("tckl").innerText = targetckList.length;
+						document.getElementById("tl").innerText = targetList.length;
+						if(0 < targetckList.length){
+							document.getElementById("toSource").className = "active ty-transfer-btn-toleft to-switch";
+							document.getElementById("moveTop").className = "active ty-transfer-btn-zhiding to-switch normal";
+							document.getElementById("moveUp").className = "active ty-transfer-btn-totop to-switch";
+							document.getElementById("moveDown").className = "active ty-transfer-btn-tobottom to-switch";
+							document.getElementById("moveEnd").className = "active ty-transfer-btn-zhidi to-switch normal";
+						}else {
+							document.getElementById("toSource").className = "disabled ty-transfer-btn-toleft to-switch";
+							document.getElementById("moveTop").className = "disabled ty-transfer-btn-zhiding to-switch normal";
+							document.getElementById("moveUp").className = "disabled ty-transfer-btn-totop to-switch";
+							document.getElementById("moveDown").className = "disabled ty-transfer-btn-tobottom to-switch";
+							document.getElementById("moveEnd").className = "disabled ty-transfer-btn-zhidi to-switch normal";
+						}
+					};
+					targetList.push(tck[i].value)
+					if(tck[i].checked){
+						targetckList.push(tck[i].value)
+					}
+				}
+
+				//获得源数据中未选中的数据
+				var sul = document.getElementById("sourcedata");
+				var sli = sul.getElementsByTagName("li");
+				sourcedataList = [];
+				for (var i = sli.length - 1; 0 <= i; i--) {
+					var inpts = sli[i].getElementsByTagName("input");
+					if(inpts[0].checked){
+						sul.removeChild(sli[i])
+					}else {
+						sourcedataList.push(inpts[0].value)
+					}
+				}
+				//重置元数据框的按钮
+				document.getElementById("toTarget").className = "disabled ty-transfer-btn-toright to-switch";
+				var sack = document.getElementById ("sack").checked = false;
+				sourceckdataList = [];
+
+				document.getElementById("sckl").innerText = sourceckdataList.length;
+				document.getElementById("sl").innerText = sourcedataList.length;
+				document.getElementById("tckl").innerText = targetckList.length;
+				document.getElementById("tl").innerText = targetList.length;
+			}
+			// 把选择数据转回到源（左框）
+			function toSource() {
+				//向目标框添加数据
+				var ul = document.getElementById("sourcedata");
+				for ( var i = 0; i < targetckList.length; i++){
+					var li = document.createElement("li");
+					ul.appendChild(li);
+					li.innerHTML = "<div class=\"ty-tree-div\">\n" +
+							"<label class=\"tyue-checkbox-wrapper\">\n" +
+							"<span class=\"tyue-checkbox\">\n" +
+							"<input name='sck' type=\"checkbox\" value=\""+ targetckList[i] +"\" class=\"tyue-checkbox-input\">\n" +
+							"<span class=\"tyue-checkbox-circle\"></span>\n" +
+							"</span>\n" +
+							"<span class=\"tyue-checkbox-txt\">"+ targetckList[i] +"</span>\n" +
+							"</label>\n" +
+							"</div>\n";
+				}
+				//重新设置四个值
+				//目标
+				var sck = document.getElementsByName("sck");
+				var sack = document.getElementById ("sack");
+				sourcedataList = [];
+				sourceckdataList = [];
+				for ( var i = 0; i < sck.length; i++){
+					sck[i].onclick = function (){
+						sourceckdataList = [];
+						var falg = true;
+						for ( var i = 0; i < sck.length; i++){
+							if(sck[i].checked){
+								sourceckdataList.push(sck[i].value)
+							}else {
+								falg = false;
+							}
+						}
+						//获得已选中和未选中的数据
+						sack.checked = falg;
+						document.getElementById("sckl").innerText = sourceckdataList.length;
+						document.getElementById("sl").innerText = sourcedataList.length;
+						if(0 < sourceckdataList.length){
+							document.getElementById("toTarget").className = "active ty-transfer-btn-toright to-switch";
+						}else {
+							document.getElementById("toTarget").className = "disabled ty-transfer-btn-toright to-switch";
+						}
+					};
+					sourcedataList.push(sck[i].value)
+					if(sck[i].checked){
+						sourceckdataList.push(sck[i].value)
+					}
+				}
+
+				//获得源数据中未选中的数据
+				var tul = document.getElementById("targetdata");
+				var tli = tul.getElementsByTagName("li");
+				targetList = [];
+				for (var i = tli.length - 1; 0 <= i; i--) {
+					var inpts = tli[i].getElementsByTagName("input");
+					if(inpts[0].checked){
+						tul.removeChild(tli[i])
+					}else {
+						targetList.push(inpts[0].value)
+					}
+				}
+
+				//重置元数据框的按钮
+				document.getElementById("toSource").className = "disabled ty-transfer-btn-toleft  to-switch";
+				document.getElementById("moveTop").className = "disabled ty-transfer-btn-zhiding to-switch normal";
+				document.getElementById("moveUp").className = "disabled ty-transfer-btn-totop to-switch";
+				document.getElementById("moveDown").className = "disabled ty-transfer-btn-tobottom to-switch";
+				document.getElementById("moveEnd").className = "disabled ty-transfer-btn-zhidi to-switch normal";
+				document.getElementById ("tack").checked = false;
+				targetckList = [];
+				document.getElementById("sckl").innerText = sourceckdataList.length;
+				document.getElementById("sl").innerText = sourcedataList.length;
+				document.getElementById("tckl").innerText = targetckList.length;
+				document.getElementById("tl").innerText = targetList.length;
+			}
+
+			function moveItems(direction) {
+				//获得框内所有子节点
+				var tul = document.getElementById("targetdata");
+				var tli = tul.getElementsByTagName("li");
+
+				//置顶
+				if (direction == 0) {
+					var targetli;
+					for ( var i = tli.length - 1; 0 <= i; i--){
+						var box = tli[i].querySelector("[type=checkbox]");
+						if(!box.checked){
+							targetli = tli[i];
+							tul.appendChild(targetli);
+							break;
+						}
+					}
+					console.log(targetli)
+					for ( var i = tli.length - 2; 0 <= i; i--){
+						var box = tli[i].querySelector("[type=checkbox]");
+						if(!box.checked){
+							var tem = tli[i];
+							tul.insertBefore(tli[i],targetli);
+							targetli = tem;
+						}
+					}
+				}
+				//上移
+				if (direction == 1) {
+					if(tli[0].querySelector("[type=checkbox]").checked){
+						return;
+					}
+					for ( var i = 1; i < tli.length; i++){
+						var box = tli[i].querySelector("[type=checkbox]");
+						if(box.checked){
+							tul.insertBefore(tli[i],tli[i-1]);
+						}
+					}
+				}
+				//下移
+				if (direction == 2) {
+					if(tli[tli.length - 1].querySelector("[type=checkbox]").checked){
+						return;
+					}
+					for ( var i = tli.length - 2; 0 <= i; i--){
+						var box = tli[i].querySelector("[type=checkbox]");
+						if(box.checked){
+							tul.insertBefore(tli[i],tli[i+2]);
+
+						}
+					}
+				}
+				//置底
+				if (direction == 3) {
+					var targetli;
+					for ( var i = tli.length - 1; 0 <= i; i--){
+						var box = tli[i].querySelector("[type=checkbox]");
+						if(box.checked){
+							targetli = tli[i];
+							tul.appendChild(targetli);
+							break;
+						}
+					}
+					for ( var i = tli.length - 2; 0 <= i; i--){
+						var box = tli[i].querySelector("[type=checkbox]");
+						if(box.checked){
+							var temElement = tli[i];
+							tul.insertBefore(tli[i],targetli);
+							targetli = temElement;
+						}
+					}
+				}
+			}
+
+			function submit() {
+				//获取两个选择框的数据
+				//源数据
+				var sd = document.getElementById("sourcedata");
+				var sbox = sd.querySelectorAll("[type=checkbox]");
+				var ssource = [];
+				for (var i = 0;i < sbox.length; i++){
+					ssource.push(sbox[i].value)
+				}
+				console.log(ssource)
+				var td = document.getElementById("targetdata");
+				var tbox = td.querySelectorAll("[type=checkbox]");
+				var tsource = [];
+				for (var i = 0;i < tbox.length; i++){
+					tsource.push(tbox[i].value)
+				}
+				console.log(tsource)
+
+				var xhr = new XMLHttpRequest();
+				xhr.open('post','sub',true);
+				xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+				console.log(tsource);
+				xhr.send("tsource="+tsource+"&ssource="+ssource+"&name=[11,22]");
+				xhr.onreadystatechange = function () {
+					if(xhr.readyState == 4 && xhr.status == 200){
+						var data = xhr.responseText;
+						console.log(data)
+					}
+				}
+			}
+
+			function insertAfter(newElement,targetElement){
+				var parent = targetElement.parentNode;
+				if(parent.lastChild == targetElement){
+					parent.appendChild(newElement);
+				}else{
+					parent.insertBefore(newElement,targetElement.nextSibling);
+				}
+			}
+    	</script>
+	</body>
+</html>

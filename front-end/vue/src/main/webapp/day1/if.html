@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+
+</head>
+<body>
+    <div id="app">
+        <input type="button" @click="toggle" value="btn">
+        <input type="button" @click="flag=!flag" value="btn">
+        <h3 v-if="flag">v-if</h3>
+        <h3 v-show="flag">v-show</h3>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                flag:true,
+            },
+            methods:{
+                toggle(){
+                    this.flag = !this.flag
+                }
+            }
+        })
+    </script>
+</body>
+</html>

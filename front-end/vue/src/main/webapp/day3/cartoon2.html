@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/resource.js"></script><!--//vue-resource-1.3.4.js-->
+    <link rel="stylesheet" href="../css/animate.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <input type="button" value="toggle" @click="flag=!flag">
+    <transition enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+        <h3 v-if="flag"> 这是一个H31 </h3>
+    </transition>
+    <hr/>
+    <transition enter-active-class="bounceIn" leave-active-class="bounceOut">
+        <h3 v-if="flag" class="animated"> 这是一个H32 </h3>
+    </transition>
+
+</div>
+
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            flag:false,
+            flag2:false,
+        },
+        methods:{
+
+        }
+    })
+</script>
+</body>
+</html>
