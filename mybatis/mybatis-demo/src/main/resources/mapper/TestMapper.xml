@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crown.mybatis.mapper.TestDao">
+
+    <select id="selectAll" resultType="map">
+        SELECT * FROM t_test
+    </select>
+
+    <select id="selectTest" resultType="com.crown.mybatis.entity.NewTest">
+        SELECT
+            t_test.a,
+            t_test.b,
+            t_test.c,
+            t_test.d
+        FROM
+            t_test
+    </select>
+
+    <insert id="insertMap" parameterType="map">
+        INSERT INTO `t_test`(`key`,`name`) VALUES
+      <foreach collection="params.keys" index="ind" item="key" separator=",">
+          (
+            #{key},
+            #{params[${key}]}
+          )
+      </foreach>
+    </insert>
+
+    <!--<insert id="insertRunData" >
+        INSERT INTO `em_4`.`t_report_day_form1`
+        (
+          `DS_ID`,
+          `SC_ID`,
+          `RDF_DATA`,
+          `RDF_CREATE_DT`,
+          `RDF_HOUR`,
+          `RDF_MINU`
+        )
+        VALUES
+        <foreach collection="datas.keys" item="scid" separator=",">
+            (
+                #{dsid},
+                #{scid},
+                #{datas[${scid}]},
+                #{date},
+                #{hour},
+                #{minu}
+            )
+        </foreach>
+    </insert>-->
+    <insert id="insertRunData" >
+        INSERT INTO `em_4`.`t_report_day_form1`
+        (
+        `DS_ID`,
+        `SC_ID`,
+        `RDF_DATA`,
+        `RDF_CREATE_DT`,
+        `RDF_HOUR`,
+        `RDF_MINU`
+        )
+        VALUES
+        <foreach collection="datas.entrySet()" index="key" item="val" separator=",">
+            (
+            #{dsid},
+            #{key},
+            #{val},
+            #{date},
+            #{hour},
+            #{minu}
+            )
+        </foreach>
+    </insert>
+</mapper>

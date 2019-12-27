@@ -488,7 +488,7 @@
 				xhr.open('post','sub',true);
 				xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
 				console.log(tsource);
-				xhr.send("tsource="+tsource+"&ssource="+ssource+"&name=[11,22]");
+				xhr.send("tsource="+tsource+"&ssource="+ssource+"&name=[11,2]");
 				xhr.onreadystatechange = function () {
 					if(xhr.readyState == 4 && xhr.status == 200){
 						var data = xhr.responseText;

@@ -20,7 +20,6 @@
         <module>spring-demo</module>
         <module>spring-transaction</module>
         <module>spring-scope</module>
-        <module>spring-boot</module>
         <module>spring-mvc</module>
     </modules>
 

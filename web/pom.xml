@@ -17,6 +17,8 @@
     <url>http://www.example.com</url>
     <modules>
         <module>jsp</module>
+        <module>shiro</module>
+        <module>servlet</module>
     </modules>
 
     <properties>

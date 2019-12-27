@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crown.mybatis.demo1.mapper.AddressMapper">
+    <select id="selectByUid" resultType="com.crown.mybatis.demo1.entity.Address">
+        SELECT
+            ADDRESS_ID AS addressId,
+            ADDRESS_NAME AS addressName
+        FROM
+            t_address
+        WHERE
+            USER_ID = #{uid}
+    </select>
+</mapper>

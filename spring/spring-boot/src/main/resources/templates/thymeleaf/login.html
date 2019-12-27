@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Please sign in My</title>
+</head>
+<body>
+<div class="container">
+    <form method="post" action="/login">
+        <h2>Please sign in</h2>
+        <p>
+            <label for="username" >Username</label>
+            <input type="text" id="username" name="myusername" placeholder="Username" required
+                   autofocus>
+        </p>
+        <p>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="mypassword" placeholder="Password" required>
+        </p>
+        <input name="_csrf" type="hidden" value="a39b77cd-4804-4e6e-ae81-7ef34514c95e"/>
+        <button type="submit">Sign in</button>
+    </form>
+</div>
+</body>
+</html>

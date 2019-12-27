@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crown.mybatis.demo1.mapper.UserMapper">
+
+    <resultMap id="userMap" type="com.crown.mybatis.demo1.entity.User">
+        <id column="USER_ID" property="userId"/>
+        <result column="USER_NAME" property="userName"/>
+        <association column="USER_ID" property="address" fetchType="lazy" javaType="com.crown.mybatis.demo1.entity.Address"
+                     select="com.crown.mybatis.demo1.mapper.AddressMapper.selectByUid"/>
+        <collection column="USER_ID" property="phnoes" ofType="com.crown.mybatis.demo1.entity.Phnoe"
+                    select="com.crown.mybatis.demo1.mapper.PhoneMapper.selectByUid"/>
+    </resultMap>
+
+    <select id="selectMap" resultMap="userMap">
+        SELECT
+            USER_ID,
+            USER_NAME
+        FROM
+            `user`
+        WHERE
+            USER_ID = 1
+    </select>
+
+    <select id="selectOne" resultType="com.crown.mybatis.demo1.entity.User">
+        SELECT
+            USER_ID AS userId,
+            USER_NAME AS userName
+        FROM
+            `user`
+        WHERE
+            USER_ID = 1
+    </select>
+</mapper>

@@ -1,0 +1,29 @@
+脚本
+    输出脚本  <%= java %>
+    声明脚本  <%! %>
+    普通脚本  <%  %>
+指令  用来设置整个JSP页面相关的属性
+    <%@ directive attribute="value" %>
+    <%@page language="java" contentType="text/html; UTF-8" pageEncoding="UTF-8" %>
+    <%@include file="xx.jsp"%>   //静态包含（源代码包含） 不建议使用   源代码整合
+    <%@taglib prefix=""%>   引入标签库
+动作
+    与JSP指令元素不同的是，JSP动作元素在请求处理阶段起作用。JSP动作元素是用XML语法写成的。
+    利用JSP动作可以动态地插入文件、重用JavaBean组件、把用户重定向到另外的页面、为Java插件生成HTML代码。
+    动作元素只有一种语法，它符合XML标准：
+    <jsp:action_name attribute="value" />
+
+    <jsp:include page="相对 URL 地址" flush="true" />   //动态包含   输出整合
+    <jsp:forward page="相对 URL 地址" />   jsp之间的跳转   开发中没有实质意义
+
+
+内置对象   JSP隐式对象是JSP容器为每个页面提供的Java对象，开发者可以直接使用它们而不用显式声明。JSP隐式对象也被称为预定义变量。
+        request
+        respon
+        session
+        applicatin
+        out
+        config
+        pageContext
+        page
+        Exception

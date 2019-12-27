@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/security
+            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+        <context:component-scan base-package="com.crown.springsecurity.security.demo3"/>
+        <!--配置公开资源-->
+        <security:http pattern="/login1.jsp*" security="none"/>
+        <!--自定义登陆验证-->
+        <security:http auto-config="true">
+                <security:intercept-url pattern="/**" access="ROLE_USER"/>
+                <!--自定义登陆页面,验证地址,接受参数  url必须以/开头-->
+                <security:form-login
+                        login-page="/login1.jsp"
+                        login-processing-url="/user/login"
+                        username-parameter="un"
+                        password-parameter="pw"
+                        default-target-url="/index.jsp"
+                        always-use-default-target="false"
+                        authentication-failure-url="/login1.jsp"/>
+                <security:logout
+                        logout-url="/user/logout"
+                        logout-success-url="/login1.jsp"/>
+        </security:http>
+        <security:authentication-manager>
+                <!--代替原来固定的配置信息-->
+                <security:authentication-provider user-service-ref="myUserDetailsService">
+                        <!--使用自定义的加密算法  并使用用户名做为盐-->
+                        <security:password-encoder ref="myPasswordEncoder">
+                                <!--user-property 指向封装在UserDetails中的相应属性-->
+                                <!--<security:salt-source user-property="mySaltValue"/>-->
+                                <!--自定义盐的来源-->
+                                <security:salt-source ref="mySaltSource"/>
+                        </security:password-encoder>
+                </security:authentication-provider>
+        </security:authentication-manager>
+</beans>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crown.mybatis.demo3.TestJoin">
+
+    <resultMap id="pMap" type="com.crown.mybatis.entity.P">
+        <id column="p_id" property="id" ></id>
+        <!--<result column="p_id" property="id"></result>-->
+        <result column="p_name" property="name"></result>
+        <collection property="ss"  ofType="com.crown.mybatis.entity.S">
+            <id column="s_id" property="id"></id>
+            <!--<result column="s_id" property="id"></result>-->
+            <result column="s_name" property="name"></result>
+        </collection>
+    </resultMap>
+
+    <select id="selectP" resultMap="pMap">
+      SELECT
+        t_p.p_id,
+        t_p.p_name,
+        t_s.s_id,
+        t_s.s_name
+      FROM
+        t_p
+        LEFT JOIN t_s ON t_s.p_id = t_p.p_id
+    </select>
+</mapper>

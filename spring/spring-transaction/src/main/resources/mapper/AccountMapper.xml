@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crown.dao.AccountDao">
+	
+	<insert id="insertOne" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO account VALUES (#{balance})
+	</insert>
+
+	<insert id="insertAccount">
+		INSERT INTO account (id, balance) VALUES (#{id}, #{balance})
+	</insert>
+
+	<update id="updateOne">
+		UPDATE account SET balance = #{balance} WHERE id = #{id}
+	</update>
+
+	<select id="queryOne" resultType="com.crown.entity.Account" useCache="false">
+		select * from account where id = #{id}
+	</select>
+
+	<select id="queryCount" resultType="int">
+		SELECT SUM(balance) FROM account
+	</select>
+</mapper>
