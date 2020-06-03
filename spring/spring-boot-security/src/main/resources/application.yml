@@ -3,6 +3,9 @@ server:
   servlet:
     context-path: /
 spring:
-    user:
-      name: crown
-      password: crown
+  user:
+    name: crown
+    password: crown
+logging:
+  level:
+    root: info

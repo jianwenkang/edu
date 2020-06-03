@@ -1,5 +1,7 @@
 package com.crown.springbootsecurity.service.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MyPasswordEncoder extends BCryptPasswordEncoder implements PasswordEncoder {
+    private static Logger logger = LoggerFactory.getLogger(MyPasswordEncoder.class);
+
     @Override
     public String encode(CharSequence clientPassword) {
         String encodedPassword = new BCryptPasswordEncoder().encode(clientPassword);
@@ -25,7 +29,8 @@ public class MyPasswordEncoder extends BCryptPasswordEncoder implements Password
     public boolean matches(CharSequence clientPassword, String encodedPassword) {
         encode(clientPassword);
         boolean matches = new BCryptPasswordEncoder().matches(clientPassword, encodedPassword);
-        return true;
+        logger.info("密码对比结果:{}",matches);
+        return matches;
     }
 
     @Override

@@ -19,6 +19,7 @@
         <module>office</module>
         <module>quartz</module>
         <module>concurrent</module>
+        <module>utiliy</module>
     </modules>
 
     <properties>

@@ -25,15 +25,18 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
     private static Logger logger = LoggerFactory.getLogger(MyFilterInvocationSecurityMetadataSource.class);
     private static Map<String, List<ConfigAttribute>> map = new HashMap<>();
     static {
-        System.out.println("{}-{}-{}"+"模拟数据库查询:"+"资源:");
+        logger.debug("{}-{}-{}"+"模拟数据库查询:"+"资源:");
         List<ConfigAttribute> configAttributeList = new ArrayList<>();
-        configAttributeList.add(new SecurityConfig("ROLE_ADMIN"));
+        configAttributeList.add(new SecurityConfig("ADMIN"));
         map.put("/admin",configAttributeList);
-        map.put("/**",configAttributeList);
+        //map.put("/**",configAttributeList);
         List<ConfigAttribute> configAttributeList1 = new ArrayList<>();
-        configAttributeList1.add(new SecurityConfig("ROLE_USER"));
+        configAttributeList1.add(new SecurityConfig("USER"));
         map.put("/user",configAttributeList1);
-        map.put("/**",configAttributeList1);
+        //map.put("/**",configAttributeList1);
+        //List<ConfigAttribute> configAttributeList2 = new ArrayList<>();
+        //configAttributeList2.add(new SecurityConfig("ROLE_ANONYMOUS"));
+        //map.put("/none/**",configAttributeList2);
 
     }
 
@@ -47,6 +50,7 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object)
             throws IllegalArgumentException {
+        logger.info("权限认证");
         //包含请求中的所有信息
         FilterInvocation filterInvocation = (FilterInvocation) object;
         String fullRequestUrl = filterInvocation.getFullRequestUrl();//受限资源
@@ -56,11 +60,13 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
             //请求对比器
             RequestMatcher matcher = new AntPathRequestMatcher(string);
             boolean matches = matcher.matches(filterInvocation.getHttpRequest());
+            logger.info("matches:{}",matcher);
             if(matches){
                 return map.get(string);
             }
         }
-        throw new IllegalArgumentException("访问无效资源");
+        return null;
+        //throw new IllegalArgumentException("访问无效资源");
     }
 
     /**

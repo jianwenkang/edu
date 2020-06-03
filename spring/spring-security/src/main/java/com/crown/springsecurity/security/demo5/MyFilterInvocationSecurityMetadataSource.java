@@ -52,16 +52,16 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
     static {
         logger.debug("{}-{}-{}","模拟数据库查询:","资源:");
         List<ConfigAttribute> configAttributeList = new ArrayList<>();
-        configAttributeList.add(new SecurityConfig("ROLE_USER1"));
-        configAttributeList.add(new SecurityConfig("ROLE_USER2"));
+        configAttributeList.add(new SecurityConfig("USER1"));
+        configAttributeList.add(new SecurityConfig("USER2"));
         map.put("/user/*",configAttributeList);
         List<ConfigAttribute> configAttributeList1 = new ArrayList<>();
-        configAttributeList1.add(new SecurityConfig("ROLE_ADMIN1"));
-        configAttributeList1.add(new SecurityConfig("ROLE_ADMIN2"));
+        configAttributeList1.add(new SecurityConfig("ADMIN1"));
+        configAttributeList1.add(new SecurityConfig("ADMIN2"));
         map.put("/admin/*",configAttributeList1);
         List<ConfigAttribute> configAttributeList2 = new ArrayList<>();
-        configAttributeList2.add(new SecurityConfig("ROLE_USER1"));
-        configAttributeList2.add(new SecurityConfig("ROLE_ADMIN1"));
+        configAttributeList2.add(new SecurityConfig("USER1"));
+        configAttributeList2.add(new SecurityConfig("ADMIN1"));
         map.put("/user_admin/*",configAttributeList2);
 
 

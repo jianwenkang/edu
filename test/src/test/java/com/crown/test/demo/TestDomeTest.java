@@ -2,7 +2,8 @@ package com.crown.test.demo;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.time.LocalDateTime;
+import java.time.Month;
 
 /**
  * @ClassName TestDomeTest
@@ -16,6 +17,7 @@ public class TestDomeTest {
 
     @Test
     public void add() {
-
+        LocalDateTime localDateTime = LocalDateTime.of(2020, Month.JULY, 1, 1, 1);
+        System.out.println(localDateTime);
     }
 }

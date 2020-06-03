@@ -30,6 +30,7 @@
         <module>pattern-strategy</module>
         <module>pattern-observer</module>
         <module>pattern-chain</module>
+        <module>pattern-visitor</module>
     </modules>
 
     <properties>

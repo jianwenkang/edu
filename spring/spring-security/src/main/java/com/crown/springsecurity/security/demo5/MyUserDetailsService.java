@@ -33,7 +33,7 @@ public class MyUserDetailsService implements UserDetailsService {
         //根据前台的用户名去数据库查询用户相关信息
         logger.debug("{}:{}","模拟查询数据库",username);
         if(username.endsWith("ccc")) throw new UsernameNotFoundException("查询失败");
-        String role = "ROLE_USER2";
+        String role = "USER2";
         String password = "123{kjw}";
         String saltValue = "{kjw}";
         HashSet<GrantedAuthority> grantedAuthorities = new HashSet<>();

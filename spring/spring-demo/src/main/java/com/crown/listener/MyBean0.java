@@ -1,5 +1,7 @@
 package com.crown.listener;
 
+import org.springframework.stereotype.Service;
+
 /**
  * @ClassName MyBean0
  * @Description TODO
@@ -8,5 +10,6 @@ package com.crown.listener;
  * @Time 14:46
  * @Version 1.0
  */
+@Service
 public class MyBean0 {
 }

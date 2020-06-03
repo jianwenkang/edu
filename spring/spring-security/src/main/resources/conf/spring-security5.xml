@@ -13,7 +13,7 @@
         <!--配置公开资源-->
         <security:http pattern="/login2.jsp*" security="none"/>
         <!--自定义filter-->
-        <security:http auto-config="false" entry-point-ref="loginUrlAuthenticationEntryPoint">
+        <security:http auto-config="false" entry-point-ref="loginUrlAuthenticationEntryPoint" >
                 <!--配置自定义的认证  替换form-login-->
                 <security:custom-filter ref="usernamePasswordAuthenticationFilter" position="FORM_LOGIN_FILTER"/>
                 <security:custom-filter ref="rememberMeAuthenticationFilter" after="FORM_LOGIN_FILTER"/>
@@ -116,7 +116,7 @@
 
         <!-- 修改rolePrefix,否则Spring要求权限必须以ROLE_开头 -->
         <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
-                <property name="rolePrefix" value=""/>
+                <property name="rolePrefix" value="kjw_"/>
         </bean>
 
         <bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter"></bean>
