@@ -10,5 +10,4 @@ package com.crown.springboot.config;
  */
 
 public class DBconfig {
-
 }

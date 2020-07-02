@@ -1,11 +1,8 @@
 package com.crown.servlet.shiro;
 
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.filter.DelegatingFilterProxy;
-
-import javax.servlet.*;
-import javax.servlet.annotation.HandlesTypes;
-import java.util.EnumSet;
+import javax.servlet.ServletContainerInitializer;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import java.util.Set;
 
 /**
@@ -16,15 +13,16 @@ import java.util.Set;
  * @Time 11:46
  * @Version 1.0
  */
-@HandlesTypes(WebApplicationInitializer.class)
+//@HandlesTypes(WebApplicationInitializer.class)
 public class WebServletContainerInitializer implements ServletContainerInitializer {
 
     @Override
     public void onStartup(Set<Class<?>> c, ServletContext servletContext) throws ServletException {
+        System.out.println("=========");
         // shiro过滤器
-        FilterRegistration.Dynamic shiroFilter = servletContext.addFilter("shiroFilter", DelegatingFilterProxy.class);
-        shiroFilter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
-        shiroFilter.setInitParameter("targetFilterLifecycle", "true");
+        //FilterRegistration.Dynamic shiroFilter = servletContext.addFilter("shiroFilter", DelegatingFilterProxy.class);
+        //shiroFilter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+        //shiroFilter.setInitParameter("targetFilterLifecycle", "true");
     }
 
 }

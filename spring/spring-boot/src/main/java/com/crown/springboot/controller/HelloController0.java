@@ -1,6 +1,6 @@
 package com.crown.springboot.controller;
 
-import com.crown.springboot.service.HelloService;
+import com.crown.springboot.service.security.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;

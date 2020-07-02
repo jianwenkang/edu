@@ -1,12 +1,5 @@
 package com.crown.springboot.config;
 
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-
-import javax.sql.DataSource;
-
 /**
  * @ClassName MyBatisConfig
  * @Description TODO
@@ -21,10 +14,10 @@ import javax.sql.DataSource;
 
 public class MyBatisConfig {
 
+/*
 
 
     @Autowired
-
     private DataSource dataSource;
 
 
@@ -44,6 +37,7 @@ public class MyBatisConfig {
         return sessionFactory;
 
     }
+*/
 
 
 
