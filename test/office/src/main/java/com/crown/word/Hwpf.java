@@ -3,6 +3,7 @@ package com.crown.word;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
@@ -15,15 +16,16 @@ import java.io.IOException;
  */
 public class Hwpf {
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws Exception {
+        Hwpf hwpf = new Hwpf();
+        hwpf.writerWorld();
     }
 
     public void writerWorld() throws IOException {
-        POIFSFileSystem poifsFileSystem = new POIFSFileSystem();
-        HWPFDocument hwpfDocument = new HWPFDocument(poifsFileSystem);
 
+        POIFSFileSystem poifsFileSystem = new POIFSFileSystem(new FileInputStream(""));
+        HWPFDocument doc = new HWPFDocument(poifsFileSystem);// 创建Word文件
 
-
+        doc.write();
     }
 }

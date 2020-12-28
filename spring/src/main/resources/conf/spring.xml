@@ -16,5 +16,5 @@
     http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
     http://www.springframework.org/schema/util
     http://www.springframework.org/schema/util/spring-util-3.2.xsd">
-
+    <import resource="classpath:/conf/spring-listener.xml"/>
 </beans>

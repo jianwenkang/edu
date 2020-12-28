@@ -2,8 +2,6 @@ package com.crown.springboot;
 
 import org.junit.Test;
 
-import java.time.LocalDateTime;
-
 /**
  * @ClassName TestOther
  * @Description TODO
@@ -13,8 +11,9 @@ import java.time.LocalDateTime;
  * @Version 1.0
  */
 public class TestOther {
+    private boolean t;
     @Test
     public void test(){
-        System.out.println(java.time.LocalDateTime.now());
+        System.out.println(t);
     }
 }

@@ -81,7 +81,7 @@ public abstract class VFS {
     }
 
     if (log.isDebugEnabled()) {
-      log.debug("Using VFS adapter " + vfs.getClass().getName());
+      log.debug("Using VFS objectadapter " + vfs.getClass().getName());
     }
     VFS.instance = vfs;
     return VFS.instance;

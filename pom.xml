@@ -20,6 +20,9 @@
       <module>xiaomage</module>
       <module>front-end</module>
       <module>base</module>
+      <module>beetlsql</module>
+      <module>elasticsearch</module>
+      <module>message-queue</module>
   </modules>
 
   <name>edu</name>

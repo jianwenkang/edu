@@ -1,0 +1,88 @@
+package ${package};
+${imports}
+${implSerializable?"import java.io.Serializable;"}
+import com.alibaba.fastjson.JSON;
+import org.beetl.sql.core.annotatoin.AssignID;
+import java.util.ArrayList;
+import java.util.List;
+/*
+* ${comment}
+* gen by beetlsql ${date(),"yyyy-MM-dd"}
+*/
+@Table(name="${catalog}.${table}")
+public class ${className} ${!isEmpty(ext)?"extends "+ext} ${implSerializable?"implements Serializable"} {
+
+	// alias
+	<%for(attr in attrs){%>
+	public static final String ALIAS_${attr.colName} = "${attr.colName}";
+	<%}%>
+
+	<%for(attr in attrs){
+			if(!isEmpty(attr.comment)){%>
+	/*
+	${attr.comment}
+	*/
+	<%		}%>
+	<% if(!isEmpty(attr.isKey) && attr.isKey ==true){%>
+	@AssignID
+	<%}%>
+	private ${attr.type} ${attr.name} ;
+
+	<% if(!isEmpty(attr.isKey) && attr.isKey ==true){%>
+	/*
+	${attr.comment}列表
+	*/
+	private List<${attr.type}> ${attr.name}List = new ArrayList<>() ;
+	<%}%>
+	<%}%>
+
+	public ${className}() {
+	}
+
+	<%for(attr in attrs){
+	if(!isEmpty(attr.comment)){%>
+	/**
+	* ${attr.comment}
+	*@return
+	*/
+	<%}%>
+	public ${attr.type} get${attr.methodName}(){
+		return  ${attr.name};
+	}
+	<%if(!isEmpty(attr.comment)){%>
+	/**
+	* ${attr.comment}
+	*@param  ${attr.name}
+	*/
+	<%}%>
+	public void set${attr.methodName}(${attr.type} ${attr.name} ){
+		this.${attr.name} = ${attr.name};
+	}
+
+	<%}%>
+
+	<%for(attr in attrs){
+	if(!isEmpty(attr.isKey) && attr.isKey ==true){%>
+	<%
+		var name = attr.name;
+		var length = strutil.length(name);
+		var prefix = strutil.subStringTo(name,0,1);
+		var upperPrefix = strutil.toUpperCase(prefix);
+		var suffix = strutil.subStringTo(name,1,length);
+		var keyListName = upperPrefix + suffix;
+	%>
+	public void set${keyListName}List(List<${attr.type}> ${attr.name}List ){
+		this.${attr.name}List = ${attr.name}List;
+	}
+
+	public List<${attr.type}> get${keyListName}List(){
+		return  ${attr.name}List;
+	}
+	<%}%>
+	<%}%>
+
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
+	}
+}
